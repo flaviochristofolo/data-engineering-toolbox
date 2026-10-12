@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jev": {
+      "command": "python3",
+      "args": ["jev/jev_mcp.py"]
+    }
+  }
+}
