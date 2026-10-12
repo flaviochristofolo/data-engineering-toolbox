@@ -7,6 +7,7 @@ sessão injeta a credencial.
 
 import json
 import os
+import sys
 import urllib.request
 
 ENDPOINT = "https://openrouter.ai/api/v1/systemone"
@@ -26,10 +27,8 @@ def evaluate(state, questions, model=MODEL, timeout=60):
 
 
 if __name__ == "__main__":
-    result = evaluate(
-        state="I was charged twice for my subscription.",
-        questions={
-            "refund": {"type": "noul", "instructions": "Is the customer asking for money back?"},
-        },
-    )
+    # Uso por linha de comando, pensado para o Claude Code chamar via Bash:
+    #   echo '{"state": "...", "questions": {...}}' | python3 jev/jev_client.py
+    payload = json.load(sys.stdin)
+    result = evaluate(state=payload["state"], questions=payload["questions"], model=payload.get("model", MODEL))
     print(json.dumps(result, ensure_ascii=False, indent=2))
